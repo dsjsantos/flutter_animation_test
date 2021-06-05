@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'portrait.dart';
 
 const double INITIAL_SIZE = 120;
 const double EXPANDED_SIZE = 250;
@@ -9,11 +10,13 @@ void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatelessWidget with PortraitModeMixin {
   static const String _title = 'Animation Example';
+  const MyApp();
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return MaterialApp(
       title: _title,
       theme: ThemeData(
@@ -33,19 +36,6 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class CurveItem {
-  late String value;
-  late String text;
-  late Curve curve;
-
-  CurveItem(
-      {required String value, required String text, required Curve curve}) {
-    this.value = value;
-    this.text = text;
-    this.curve = curve;
-  }
-}
-
 class _MyHomePageState extends State<MyHomePage> {
   Curve _curve = Curves.bounceIn;
   Color _cor = INITIAL_COLOR;
@@ -54,33 +44,16 @@ class _MyHomePageState extends State<MyHomePage> {
   late List<CurveItem> _curveOptions;
   late String? _dropdownValue;
 
-  List<CurveItem> _initCurveSelection() {
-    List<CurveItem> list = [];
-    list.add(CurveItem(
-        value: "bouncein", text: "Bounce In", curve: Curves.bounceIn));
-    list.add(CurveItem(
-        value: "bounceout", text: "Bounce Out", curve: Curves.bounceOut));
-    list.add(CurveItem(
-        value: "easeinquart",
-        text: "Ease In Quart",
-        curve: Curves.easeInQuart));
-    list.add(CurveItem(
-        value: "easeinoutback",
-        text: "Ease In Outback",
-        curve: Curves.easeInOutBack));
-    list.add(CurveItem(
-        value: "elasticinout",
-        text: "Elastic InOut",
-        curve: Curves.elasticInOut));
-
-    return list;
-  }
-
   @override
   void initState() {
     super.initState();
     this._curveOptions = _initCurveSelection();
     this._dropdownValue = _curveOptions.elementAt(0).value;
+  }
+
+  @override
+  void dispose() {
+     super.dispose();
   }
 
   List<DropdownMenuItem<String>> _getDropDownItems() {
@@ -217,4 +190,40 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
+}
+
+/// Curve Item: defines a class to represente a curve selection item
+///
+/// Contains: value, text and corresponding curve
+class CurveItem {
+  late String value;
+  late String text;
+  late Curve curve;
+
+  CurveItem(
+      {required String value, required String text, required Curve curve}) {
+    this.value = value;
+    this.text = text;
+    this.curve = curve;
+  }
+}
+
+List<CurveItem> _initCurveSelection() {
+  List<CurveItem> list = [];
+  list.add(
+      CurveItem(value: "bouncein", text: "Bounce In", curve: Curves.bounceIn));
+  list.add(CurveItem(
+      value: "bounceout", text: "Bounce Out", curve: Curves.bounceOut));
+  list.add(CurveItem(
+      value: "easeinquart", text: "Ease In Quart", curve: Curves.easeInQuart));
+  list.add(CurveItem(
+      value: "easeinoutback",
+      text: "Ease In Outback",
+      curve: Curves.easeInOutBack));
+  list.add(CurveItem(
+      value: "elasticinout",
+      text: "Elastic InOut",
+      curve: Curves.elasticInOut));
+
+  return list;
 }
