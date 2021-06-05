@@ -1,6 +1,6 @@
 # animation_test
 
-A new Flutter project.
+A Flutter project to test AnimatedContainer with curves selection.
 
 ## Getting Started
 
