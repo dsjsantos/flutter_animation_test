@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.animation_test">
    <application
-        android:label="animation_test"
+        android:label="Animation Box"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
